@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link href="../index.css" rel="stylesheet" type="text/css">
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,8 +13,7 @@
 <c:forEach var="t" items="${tweets}">
     <p><c:out value="${t.posterName}"/>  :  <c:out value="${t.content}"/><p>
 </c:forEach>
-<a href="index.html">Go back to the <em>index</em> page.</a>
+<a href="index.html">Back to main page.</a>
 <br>
-<a href="greeting">Click here to list the <em>greetings</em> using <strong>JSP</strong>!</a
 </body>
 </html>

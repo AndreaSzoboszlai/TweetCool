@@ -20,7 +20,7 @@ public class TweetCoolServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //List<Greeting> greetings = service.getGreetings();
         //req.setAttribute("greetings", greetings);
 
