@@ -15,5 +15,19 @@ public class Tweet {
         this.timestamp = timestamp;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public String getPosterName() {
+        return posterName;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
 }

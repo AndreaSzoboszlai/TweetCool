@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet("/tweetcool")
+@WebServlet("/tweets")
 public class TweetCoolServlet extends HttpServlet {
     private TweetList tweetList = new TweetList();
     private int id = 0;
@@ -30,11 +31,10 @@ public class TweetCoolServlet extends HttpServlet {
         tweetList.addTweet(new Tweet(id, name, content, date));
         List<Tweet> tweets = tweetList.getTweets();
 
-        boolean jstl = Boolean.valueOf(req.getParameter("jstl"));
-        if (jstl) {
-            req.getRequestDispatcher("greeting-jstl.jsp").forward(req, resp);
-        } else {
-            req.getRequestDispatcher("greeting.jsp").forward(req, resp);
-        }
+        req.setAttribute("tweets", tweets);
+        req.setAttribute("name", name);
+        req.setAttribute("content", content);
+        req.setAttribute("date", date);
+        req.getRequestDispatcher("tweets.jsp").forward(req, resp);
     }
 }

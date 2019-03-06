@@ -8,9 +8,9 @@
     <title>Greeting</title>
 </head>
 <body>
-<h1>Greeting!</h1>
-<c:forEach var="g" items="${greetings}">
-    <p><c:out value="${g.lang}"/>: <c:out value="${g.text}"/><p>
+<h1>Tweets: </h1>
+<c:forEach var="t" items="${tweets}">
+    <p><c:out value="${t.posterName}"/>  :  <c:out value="${t.content}"/><p>
 </c:forEach>
 <a href="index.html">Go back to the <em>index</em> page.</a>
 <br>
