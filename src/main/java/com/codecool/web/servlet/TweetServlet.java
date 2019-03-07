@@ -37,11 +37,24 @@ public class TweetServlet extends HttpServlet {
         //req.setAttribute("limit", limit);
         //req.setAttribute("offset", offset);
         //req.setAttribute("date", date);
-
-        if (tweets.size() < limit) {
+        List<Tweet> filtered = null;
+        if (tweets != null && tweets.size() < limit) {
             limit = tweets.size();
+            filtered = createFilteredList(limit, offset, name, tweets, startDate);
         }
 
+
+        if (tweets != null) {
+            req.setAttribute("filtered", filtered);
+            req.getRequestDispatcher("tweetsjstl.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("noTweetYet.jsp").forward(req, resp);
+        }
+
+
+    }
+
+    private List<Tweet> createFilteredList(int limit, int offset, String name, List<Tweet> tweets, Date startDate) {
         List<Tweet> filtered = new ArrayList<>();
         for (int i = offset; i < limit; i++) {
             if (name.equals("") && (startDate == null)) {
@@ -49,20 +62,19 @@ public class TweetServlet extends HttpServlet {
             } else if (name.equals(tweets.get(i).getPosterName()) && (startDate == null)) {
                 filtered.add(tweets.get(i));
             } else if (name.equals(tweets.get(i).getPosterName())) {
-                long tweetTime = tweets.get(i).getTimestamp().getTime();
-                long givenTime = startDate.getTime();
-                if   ((givenTime < tweetTime)){
-                    filtered.add(tweets.get(i));
-                }
+                compareDates(tweets, startDate, filtered, i);
             } else if (name.equals("") && (startDate != null)) {
-                long tweetTime = tweets.get(i).getTimestamp().getTime();
-                long givenTime = startDate.getTime();
-                if   ((givenTime < tweetTime)){
-                    filtered.add(tweets.get(i));
-                }
+                compareDates(tweets, startDate, filtered, i);
             }
         }
-        req.setAttribute("filtered", filtered);
-        req.getRequestDispatcher("tweetsjstl.jsp").forward(req, resp);
+        return filtered;
+    }
+
+    private void compareDates(List<Tweet> tweets, Date startDate, List<Tweet> filtered, int i) {
+        long tweetTime = tweets.get(i).getTimestamp().getTime();
+        long givenTime = startDate.getTime();
+        if ((givenTime < tweetTime)) {
+            filtered.add(tweets.get(i));
+        }
     }
 }
