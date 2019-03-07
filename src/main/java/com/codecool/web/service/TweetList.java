@@ -5,11 +5,15 @@ import com.codecool.web.model.Tweet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TweetList {
-    private List<Tweet> tweets;
+public final class TweetList {
+    private final List<Tweet> tweets;
 
     public TweetList() {
-        this.tweets = new ArrayList<>();
+        tweets = new ArrayList<>();
+    }
+
+    public final void createList() {
+
     }
 
     public void addTweet(Tweet tweet) {

@@ -13,9 +13,9 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet("/tweets")
+@WebServlet("/new-tweet")
 public class TweetCoolServlet extends HttpServlet {
-    private TweetList tweetList = new TweetList();
+    TweetList tweetList = new TweetList();
     private int id = 0;
 
 
@@ -31,7 +31,7 @@ public class TweetCoolServlet extends HttpServlet {
         tweetList.addTweet(new Tweet(id, name, content, date));
         List<Tweet> tweets = tweetList.getTweets();
 
-        req.setAttribute("tweets", tweets);
+        req.getSession().setAttribute("tweets", tweets);
         req.setAttribute("name", name);
         req.setAttribute("content", content);
         req.setAttribute("date", date);

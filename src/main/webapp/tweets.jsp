@@ -10,9 +10,9 @@
     <title>Greeting</title>
 </head>
 <body>
-<h1>Tweets!</h1>
-<% List<Tweet> tweets = (List<Tweet>) request.getAttribute("tweets"); %>
-<% for (Tweet t : tweets) { %>
+<h1>Got your Tweet!</h1>
+<% List<Tweet> tweets1 = (List<Tweet>) request.getSession().getAttribute("tweets"); %>
+<% for (Tweet t : tweets1) { %>
     <%= t.getPosterName() %> : <%= t.getContent() %> <br>
     <%=  t.getTimestamp()  %> <br>
     -----------------------<br>
