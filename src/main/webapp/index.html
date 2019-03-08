@@ -6,9 +6,13 @@
     <title>TweetCool</title>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-</body>
+<div class="content">
+    <div class="header1">
     <h1>TweetCool</h1>
+    </div>
+    <br>
     <form  method="POST" action="/TweetCool/new-tweet">
         Name: <br>
         <input type="text" name="name" value="name"><br>
@@ -19,7 +23,10 @@
     </form>
 
     <br>
+    <div class="header2">
     <h2>Advanced search</h2>
+    </div>
+<br>
     <form  method="GET" action="/TweetCool/tweets">
         Limit:
         <select name="limit">
@@ -44,4 +51,6 @@
         <input type="datetime-local" name='date' />
         <p><input type="submit" value="Filtered serach"></p>
     </form>
+</div>
+</body>
 </html>

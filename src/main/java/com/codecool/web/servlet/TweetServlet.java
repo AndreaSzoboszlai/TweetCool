@@ -29,14 +29,11 @@ public class TweetServlet extends HttpServlet {
         List<Tweet> tweets = (List<Tweet>) req.getSession().getAttribute("tweets");
         Date startDate = null;
         try {
-            startDate = (Date)df.parse(startDateString);
+            startDate = (Date) df.parse(startDateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        //req.setAttribute("limit", limit);
-        //req.setAttribute("offset", offset);
-        //req.setAttribute("date", date);
         List<Tweet> filtered = null;
         if (tweets != null && tweets.size() < limit) {
             limit = tweets.size();

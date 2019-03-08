@@ -12,8 +12,10 @@
 <body>
 <h1>Tweets: </h1>
 <c:forEach var="t" items="${filtered}">
+    <div class="tweets">
     <c:out value="${t.posterName}"/>  :  <c:out value="${t.content}"/><br>
     <c:out value="${t.timestamp}"/><br>
+    </div>
     <br>
 </c:forEach>
 <a href="index.html">Back to main page.</a>
