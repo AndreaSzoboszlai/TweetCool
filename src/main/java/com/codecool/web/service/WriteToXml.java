@@ -3,9 +3,12 @@ package com.codecool.web.service;
 import com.codecool.web.model.Tweet;
 import java.io.File;
 import java.io.InputStream;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,7 +24,7 @@ import org.w3c.dom.Element;
 
 public class WriteToXml {
 
-    public void writeTweets(List<Tweet> tweets) {
+    public void writeTweets(HttpServletRequest req, List<Tweet> tweets) {
         DocumentBuilder docBuilder = null;
         Document doc = null;
         Element rootElement = null;
@@ -75,7 +78,8 @@ public class WriteToXml {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = result = new StreamResult(new File("/home/andrea/Dokumentumok/apache-tomcat-9.0.16/webapps/Tweets.xml"));
+                StreamResult result = result = new StreamResult(new File(req.getServletContext().getRealPath("/") + "Tweets.xml"));
+
 
                 // Output to console for testing
                 // StreamResult result = new StreamResult(System.out);

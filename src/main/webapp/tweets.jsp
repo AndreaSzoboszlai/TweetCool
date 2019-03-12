@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>Got your Tweet!</h1>
-<% List<Tweet> tweets1 = (List<Tweet>) request..getAttribute("tweets"); %>
+<% List<Tweet> tweets1 = (List<Tweet>) request.getSession().getAttribute("tweets"); %>
 <% for (Tweet t : tweets1) { %>
     <%= t.getPosterName() %> : <%= t.getContent() %> <br>
 

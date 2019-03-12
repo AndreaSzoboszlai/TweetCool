@@ -19,10 +19,10 @@ public final class WebappContextListener implements ServletContextListener {
     WriteToXml write;
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        if (tweetList.getFiles("./webapps") == true) {
-            reader = new XMLReader("./webapps/Tweets.xml");
+        if (tweetList.getFiles(sce.getServletContext().getRealPath("/")) == true) {
+            reader = new XMLReader(sce.getServletContext().getRealPath("/") + "Tweets.xml");
             for (Tweet element : reader.getTweets()) {
-                tweetList.addTweet(element);
+                //tweetList.addTweet(element);
             }
         }
         System.out.println("This method is invoked once when the webapp gets deployed.");
@@ -31,7 +31,7 @@ public final class WebappContextListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         TweetListSingleton tweets = TweetListSingleton.getInstance();
-        write.writeTweets(tweets.getTweets());
+        //write.writeTweets(tweets.getTweets());
         System.out.println("This method is invoked once when the webapp gets undeployed.");
     }
 }

@@ -2,7 +2,10 @@ package com.codecool.web.service;
 
 import com.codecool.web.model.Tweet;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +17,13 @@ public final class TweetList {
     public TweetList() {
     }
 
-    public void createList() {
-        writer.writeTweets(tweets.getTweets());
+    public void createList(HttpServletRequest req) {
+       writer.writeTweets(req, tweets.getTweets());
     }
 
-    public void addTweet(Tweet tweet) {
+    public void addTweet(HttpServletRequest req, Tweet tweet) {
         tweets.addToTweets(tweet);
-        //createList();
+        createList(req);
     }
 
     public List<Tweet> getTweets() {
