@@ -7,25 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class TweetList {
-    private final List<Tweet> tweets;
+    TweetListSingleton tweets = TweetListSingleton.getInstance();
     WriteToXml writer = new WriteToXml();
 
 
     public TweetList() {
-        tweets = new ArrayList<>();
     }
 
     public void createList() {
-        writer.writeTweets(tweets);
+        writer.writeTweets(tweets.getTweets());
     }
 
     public void addTweet(Tweet tweet) {
-        tweets.add(tweet);
-        createList();
+        tweets.addToTweets(tweet);
+        //createList();
     }
 
     public List<Tweet> getTweets() {
-        return tweets;
+        return tweets.getTweets();
     }
 
     public boolean getFiles(String filePath) {

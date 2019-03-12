@@ -2,8 +2,10 @@ package com.codecool.web.service;
 
 import com.codecool.web.model.Tweet;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -73,7 +75,7 @@ public class WriteToXml {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = result = new StreamResult(new File("/home/andrea/Dokumentumok/apache-tomcat-9.0.16/webapps/TweetCool/Tweets.xml"));
+                StreamResult result = result = new StreamResult(new File("/home/andrea/Dokumentumok/apache-tomcat-9.0.16/webapps/Tweets.xml"));
 
                 // Output to console for testing
                 // StreamResult result = new StreamResult(System.out);
@@ -86,7 +88,5 @@ public class WriteToXml {
         }
     }
 }
-        /*
 
-    */
 

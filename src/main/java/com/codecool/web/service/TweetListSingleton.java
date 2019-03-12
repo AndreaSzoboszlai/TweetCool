@@ -8,13 +8,21 @@ import java.util.List;
 
 public class TweetListSingleton {
     private static TweetListSingleton ourInstance = new TweetListSingleton();
+    private List<Tweet> tweets = null;
 
     public static TweetListSingleton getInstance() {
         return ourInstance;
     }
 
     private TweetListSingleton() {
-        WriteToXml writer = new WriteToXml();
-        List<Tweet> tweets = new ArrayList<>();
+        tweets = new ArrayList<>();
+    }
+
+    public void addToTweets(Tweet tweet) {
+        tweets.add(tweet);
+    }
+
+    public List<Tweet> getTweets() {
+        return tweets;
     }
 }

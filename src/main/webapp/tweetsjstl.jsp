@@ -10,6 +10,11 @@
     <title>Tweets</title>
 </head>
 <body>
+<script>
+    onload = function() {
+        setTimeout("location.reload(true)",5000);
+    }
+</script>
 <h1>Tweets: </h1>
 <c:forEach var="t" items="${filtered}">
     <div class="tweets">

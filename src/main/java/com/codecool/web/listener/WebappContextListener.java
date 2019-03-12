@@ -2,6 +2,8 @@ package com.codecool.web.listener;
 
 import com.codecool.web.model.Tweet;
 import com.codecool.web.service.TweetList;
+import com.codecool.web.service.TweetListSingleton;
+import com.codecool.web.service.WriteToXml;
 import com.codecool.web.service.XMLReader;
 
 import javax.servlet.ServletContextEvent;
@@ -14,10 +16,11 @@ import java.util.List;
 public final class WebappContextListener implements ServletContextListener {
     TweetList tweetList = new TweetList();
     XMLReader reader;
+    WriteToXml write;
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        if (tweetList.getFiles("./webapps/TweetCool") == true) {
-            reader = new XMLReader("/home/andrea/Dokumentumok/apache-tomcat-9.0.16/webapps/TweetCool/Tweets.xml");
+        if (tweetList.getFiles("./webapps") == true) {
+            reader = new XMLReader("./webapps/Tweets.xml");
             for (Tweet element : reader.getTweets()) {
                 tweetList.addTweet(element);
             }
@@ -27,6 +30,8 @@ public final class WebappContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        TweetListSingleton tweets = TweetListSingleton.getInstance();
+        write.writeTweets(tweets.getTweets());
         System.out.println("This method is invoked once when the webapp gets undeployed.");
     }
 }

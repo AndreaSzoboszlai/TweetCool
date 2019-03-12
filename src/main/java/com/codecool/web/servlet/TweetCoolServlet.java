@@ -33,7 +33,7 @@ public class TweetCoolServlet extends HttpServlet {
 
         tweetList.addTweet(new Tweet(id, name, content, date));
         List<Tweet> tweets = tweetList.getTweets();
-        req.getSession().setAttribute("tweets", tweets);
+        req.setAttribute("tweets", tweets);
         req.setAttribute("name", name);
         req.setAttribute("content", content);
         req.setAttribute("date", date);
