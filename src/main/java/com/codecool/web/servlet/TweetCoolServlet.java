@@ -34,4 +34,11 @@ public class TweetCoolServlet extends HttpServlet {
         req.setAttribute("date", date);
         req.getRequestDispatcher("tweets.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Tweet> tweets = TweetListSingleton.getInstance().getTweets();
+        req.getSession().setAttribute("filtered", tweets);
+        req.getRequestDispatcher("tweetsjstl.jsp").forward(req, resp);
+    }
 }

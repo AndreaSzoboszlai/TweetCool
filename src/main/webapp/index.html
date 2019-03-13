@@ -14,7 +14,6 @@
     <h1>TweetCool</h1>
     </div>
     <br>
-    <p>Welcome: </p>
     <form name="form1" method="POST" action="new-tweet">
         Name: <br>
         <input type="text" name="name" value="uname" id="uname"><br>
@@ -23,8 +22,12 @@
         <textarea rows="5" cols="30" name="content"></textarea>
         <p><input type="submit" onclick="setCookie('name', document.getElementById('uname').value, '10')" value="Send tweet"></p>
     </form>
+    <form method="GET" action="new-tweet">
+        <h2>Tweets:</h2>
+        <input type="submit" value="See tweets" name='tweets' />
+        <br>
+    </form>
 
-    <br>
     <div class="header2">
     <h2>Advanced search</h2>
     </div>
