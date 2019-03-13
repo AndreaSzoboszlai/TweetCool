@@ -1,4 +1,5 @@
 \# About
+Tweets can be seen, by sending a new tweet or by clicking on Filtered Search with no filter set or it can be filtered too.
 
 Repo for the _IntelliJ + Maven + Web Quickstart_ assignment.
 
