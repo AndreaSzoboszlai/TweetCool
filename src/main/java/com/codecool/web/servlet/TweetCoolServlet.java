@@ -1,8 +1,7 @@
 package com.codecool.web.servlet;
 
 import com.codecool.web.model.Tweet;
-import com.codecool.web.service.TweetList;
-import com.codecool.web.service.XMLReader;
+import com.codecool.web.service.TweetListSingleton;
 
 
 import javax.servlet.ServletException;
@@ -16,23 +15,19 @@ import java.util.List;
 
 @WebServlet("/new-tweet")
 public class TweetCoolServlet extends HttpServlet {
-    XMLReader reader;
-    TweetList tweetList = new TweetList();
     private int id = 0;
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //List<Greeting> greetings = service.getGreetings();
-        //req.setAttribute("greetings", greetings);
 
         String name = req.getParameter("name");
         String content = req.getParameter("content");
         Date date = new Date();
         id++;
 
-        tweetList.addTweet(req, new Tweet(id, name, content, date));
-        List<Tweet> tweets = tweetList.getTweets();
+        TweetListSingleton.getInstance().addToTweets(new Tweet(id, name, content, date));
+        List<Tweet> tweets = TweetListSingleton.getInstance().getTweets();
         req.getSession().setAttribute("tweets", tweets);
         req.setAttribute("name", name);
         req.setAttribute("content", content);

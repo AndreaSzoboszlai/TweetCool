@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
 
 public class WriteToXml {
 
-    public void writeTweets(HttpServletRequest req, List<Tweet> tweets) {
+    public void writeTweets(List<Tweet> tweets) {
         DocumentBuilder docBuilder = null;
         Document doc = null;
         Element rootElement = null;
@@ -78,7 +78,9 @@ public class WriteToXml {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource source = new DOMSource(doc);
-                StreamResult result = result = new StreamResult(new File(req.getServletContext().getRealPath("/") + "Tweets.xml"));
+                String homeDir = System.getenv("CATALINA_HOME");
+                String directory = homeDir + "/webapps";
+                StreamResult result = result = new StreamResult(new File(directory + "/Tweets.xml"));
 
 
                 // Output to console for testing

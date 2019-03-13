@@ -1,7 +1,6 @@
 package com.codecool.web.servlet;
 
 import com.codecool.web.model.Tweet;
-import com.codecool.web.service.TweetList;
 import com.codecool.web.service.TweetListSingleton;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ import java.util.List;
 
 @WebServlet("/tweets")
 public class TweetServlet extends HttpServlet {
-    TweetList tweetList = new TweetList();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -28,9 +27,8 @@ public class TweetServlet extends HttpServlet {
         String name = req.getParameter("poster");
         String startDateString = req.getParameter("date");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
-        TweetListSingleton singletonList = TweetListSingleton.getInstance();
-        //req.setAttribute("filtered", singletonList.getTweets());
-        List<Tweet> tweets = singletonList.getTweets();
+
+        List<Tweet> tweets = TweetListSingleton.getInstance().getTweets();
         Date startDate = null;
         try {
             startDate = (Date) df.parse(startDateString);
