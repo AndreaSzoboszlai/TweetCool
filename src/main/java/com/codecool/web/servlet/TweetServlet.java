@@ -39,13 +39,13 @@ public class TweetServlet extends HttpServlet {
         List<Tweet> filtered = null;
         if (tweets != null && tweets.size() < limit) {
             limit = tweets.size();
-            filtered = createFilteredList(limit, offset, name, tweets, startDate);
         }
 
         if (tweets != null && tweets.size() < offset) {
             offset = 0;
-            filtered = createFilteredList(limit, offset, name, tweets, startDate);
         }
+
+        filtered = createFilteredList(limit, offset, name, tweets, startDate);
 
         if (tweets != null) {
             req.setAttribute("filtered", filtered);
