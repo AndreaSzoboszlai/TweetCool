@@ -59,25 +59,32 @@ public class TweetServlet extends HttpServlet {
 
     private List<Tweet> createFilteredList(int limit, int offset, String name, List<Tweet> tweets, Date startDate) {
         List<Tweet> filtered = new ArrayList<>();
-        for (int i = offset; i < limit; i++) {
-            if (name.equals("") && (startDate == null)) {
-                filtered.add(tweets.get(i));
-            } else if (name.equals(tweets.get(i).getPosterName()) && (startDate == null)) {
-                filtered.add(tweets.get(i));
-            } else if (name.equals(tweets.get(i).getPosterName())) {
-                compareDates(tweets, startDate, filtered, i);
-            } else if (name.equals("") && (startDate != null)) {
-                compareDates(tweets, startDate, filtered, i);
+        int count = 0;
+        for (int i = offset; i < tweets.size(); i++) {
+            if (count < limit) {
+                if (name.equals("") && (startDate == null)) {
+                    filtered.add(tweets.get(i));
+                    count++;
+                } else if (name.equals(tweets.get(i).getPosterName()) && (startDate == null)) {
+                    filtered.add(tweets.get(i));
+                    count++;
+                } else if (name.equals(tweets.get(i).getPosterName())) {
+                    long tweetTime = tweets.get(i).getTimestamp().getTime();
+                    long givenTime = startDate.getTime();
+                    if ((givenTime < tweetTime)) {
+                        filtered.add(tweets.get(i));
+                        count++;
+                    }
+                } else if (name.equals("") && (startDate != null)) {
+                    long tweetTime = tweets.get(i).getTimestamp().getTime();
+                    long givenTime = startDate.getTime();
+                    if ((givenTime < tweetTime)) {
+                        filtered.add(tweets.get(i));
+                        count++;
+                    }
+                }
             }
         }
         return filtered;
-    }
-
-    private void compareDates(List<Tweet> tweets, Date startDate, List<Tweet> filtered, int i) {
-        long tweetTime = tweets.get(i).getTimestamp().getTime();
-        long givenTime = startDate.getTime();
-        if ((givenTime < tweetTime)) {
-            filtered.add(tweets.get(i));
-        }
     }
 }
