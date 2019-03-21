@@ -57,4 +57,8 @@ public class TweetListSingleton {
         }
         return filtered;
     }
+
+    public void nullList() {
+        tweets = new ArrayList<>();
+    }
 }

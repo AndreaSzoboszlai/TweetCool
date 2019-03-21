@@ -33,6 +33,7 @@ class TweetListSingletonTest {
         tweet1 = null;
         tweet2 = null;
         tweetList = null;
+        TweetListSingleton.getInstance().nullList();
     }
 
     @Test
@@ -42,7 +43,7 @@ class TweetListSingletonTest {
 
     @Test
     void addToTweets() {
-        //assertEquals(2, TweetListSingleton.getInstance().getTweets().size());
+        assertEquals(2, TweetListSingleton.getInstance().getTweets().size());
         assertFalse(TweetListSingleton.getInstance().getTweets().isEmpty());
     }
 
@@ -53,6 +54,9 @@ class TweetListSingletonTest {
     }
 
     @Test
-    void createFilteredList() {
+    void createFilteredListByPoster() {
+        String p = "Poster1";
+        assertEquals(tweetList.get(0), TweetListSingleton.getInstance().createFilteredList(10, 0, "Poster1", null).get(0));
     }
+    
 }
