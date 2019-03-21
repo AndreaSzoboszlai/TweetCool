@@ -1,6 +1,7 @@
 package com.codecool.web.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Tweet {
     private int id;
@@ -29,5 +30,24 @@ public class Tweet {
 
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Tweet)) return false;
+        Tweet tweet = (Tweet) o;
+        return this.id == tweet.id &&
+            this.posterName.equals(tweet.posterName) &&
+            this.content.equals(tweet.content);
+    }
+
+    @Override
+    public String toString() {
+        return "Tweet{" +
+            "id=" + id +
+            ", posterName='" + posterName + '\'' +
+            ", content='" + content + '\'' +
+            ", timestamp=" + timestamp +
+            '}';
     }
 }
