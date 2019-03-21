@@ -45,7 +45,7 @@ public class TweetServlet extends HttpServlet {
             offset = 0;
         }
 
-        filtered = createFilteredList(limit, offset, name, tweets, startDate);
+        filtered = TweetListSingleton.getInstance().createFilteredList(limit, offset, name, startDate);
 
         if (tweets != null) {
             req.setAttribute("filtered", filtered);
@@ -57,34 +57,5 @@ public class TweetServlet extends HttpServlet {
 
     }
 
-    private List<Tweet> createFilteredList(int limit, int offset, String name, List<Tweet> tweets, Date startDate) {
-        List<Tweet> filtered = new ArrayList<>();
-        int count = 0;
-        for (int i = offset; i < tweets.size(); i++) {
-            if (count < limit) {
-                if (name.equals("") && (startDate == null)) {
-                    filtered.add(tweets.get(i));
-                    count++;
-                } else if (name.equals(tweets.get(i).getPosterName()) && (startDate == null)) {
-                    filtered.add(tweets.get(i));
-                    count++;
-                } else if (name.equals(tweets.get(i).getPosterName())) {
-                    long tweetTime = tweets.get(i).getTimestamp().getTime();
-                    long givenTime = startDate.getTime();
-                    if ((givenTime < tweetTime)) {
-                        filtered.add(tweets.get(i));
-                        count++;
-                    }
-                } else if (name.equals("") && (startDate != null)) {
-                    long tweetTime = tweets.get(i).getTimestamp().getTime();
-                    long givenTime = startDate.getTime();
-                    if ((givenTime < tweetTime)) {
-                        filtered.add(tweets.get(i));
-                        count++;
-                    }
-                }
-            }
-        }
-        return filtered;
-    }
+
 }

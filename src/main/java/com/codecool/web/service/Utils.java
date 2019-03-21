@@ -1,14 +1,10 @@
 package com.codecool.web.service;
 
 import com.codecool.web.model.Tweet;
-import java.io.File;
-import java.io.InputStream;
-import java.net.http.HttpRequest;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.http.HttpServletRequest;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,14 +13,25 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+public class Utils {
 
-public class WriteToXml {
+    public static boolean doesFileExit(String filePath) {
+        File folder = new File(filePath);
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".xml"));
 
-    public void writeTweets(List<Tweet> tweets) {
+        for (File file : listOfFiles) {
+            if (file.getName().equals("Tweets.xml")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void writeTweets(List<Tweet> tweets) {
         DocumentBuilder docBuilder = null;
         Document doc = null;
         Element rootElement = null;
@@ -47,11 +54,6 @@ public class WriteToXml {
 
                 rootElement.appendChild(staff);
 
-                // set attribute to staff element
-                //Attr attr = doc.createAttribute("id");
-                //attr.setValue("1");
-                //staff.setAttributeNode(attr);
-                //No need for attribute id for my XML file
 
                 //firstname elements
                 Element firstName = doc.createElement("id");
@@ -82,10 +84,6 @@ public class WriteToXml {
                 String directory = homeDir + "/webapps";
                 StreamResult result = result = new StreamResult(new File(directory + "/Tweets.xml"));
 
-
-                // Output to console for testing
-                // StreamResult result = new StreamResult(System.out);
-
                 transformer.transform(source, result);
 
             } catch (TransformerException tfe) {
@@ -93,6 +91,26 @@ public class WriteToXml {
             }
         }
     }
+
+    public static String getString(List<Element> elements, String name) {
+        for (Element element : elements) {
+            if (element.getTagName().equals(name)) {
+                return element.getTextContent();
+            }
+        }
+        throw new IllegalStateException();
+    }
+
+    public static List<Element> getElements(Element parentNode) {
+        ArrayList<Element> elements = new ArrayList<Element>();
+        for (int i = 0; i < parentNode.getChildNodes().getLength(); i++) {
+            Node childnode = parentNode.getChildNodes().item(i);
+            if (childnode instanceof Element) {
+                elements.add((Element) childnode);
+            }
+
+        }
+        return elements;
+    }
+
 }
-
-
