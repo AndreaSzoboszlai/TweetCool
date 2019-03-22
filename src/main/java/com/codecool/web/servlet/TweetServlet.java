@@ -1,7 +1,7 @@
 package com.codecool.web.servlet;
 
 import com.codecool.web.model.Tweet;
-import com.codecool.web.service.TweetListSingleton;
+import com.codecool.web.service.TweetList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class TweetServlet extends HttpServlet {
         String startDateString = req.getParameter("date");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
 
-        List<Tweet> tweets = TweetListSingleton.getInstance().getTweets();
+        List<Tweet> tweets = TweetList.getInstance().getTweets();
         Date startDate = null;
         try {
             startDate = (Date) df.parse(startDateString);
@@ -45,7 +44,7 @@ public class TweetServlet extends HttpServlet {
             offset = 0;
         }
 
-        filtered = TweetListSingleton.getInstance().createFilteredList(limit, offset, name, startDate);
+        filtered = TweetList.getInstance().createFilteredList(limit, offset, name, startDate);
 
         if (tweets != null) {
             req.setAttribute("filtered", filtered);

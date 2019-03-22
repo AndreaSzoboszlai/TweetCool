@@ -14,8 +14,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Utils {
 
@@ -111,6 +115,50 @@ public class Utils {
 
         }
         return elements;
+    }
+
+    public static Document loadXmlDocument(String xmlPath) {
+        Document doc = null;
+        try {
+
+            File fXmlFile = new File(xmlPath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            doc = dBuilder.parse(fXmlFile);
+            doc.getDocumentElement().normalize();
+            return doc;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return doc;
+    }
+
+    public static List<Tweet> readXML(String xmlPath) {
+        List<Tweet> tweets = new ArrayList<>();
+        Document doc = loadXmlDocument(xmlPath);
+        Element rootNode = doc.getDocumentElement();
+        List<Element> tweetNodes = Utils.getElements(rootNode);
+        addTweet(tweetNodes, tweets);
+        return tweets;
+    }
+
+    private static void addTweet(List<Element> tweetNodes, List<Tweet> targetTweets) {
+        for (Element tweetNode : tweetNodes ) {
+            List<Element> fieldNodes = Utils.getElements(tweetNode);
+            int id = Integer.valueOf(Utils.getString(fieldNodes, "id"));
+            String posterName = Utils.getString(fieldNodes, "posterName");
+            String content = Utils.getString(fieldNodes, "content");
+            String dateString = (Utils.getString(fieldNodes, "timestamp"));
+            SimpleDateFormat df = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH);
+            Date date = null;
+            try {
+                date = (Date) df.parse(dateString);
+                Tweet tweet = new Tweet(id, posterName, content, date);
+                targetTweets.add(tweet);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

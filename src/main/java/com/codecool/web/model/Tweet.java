@@ -38,7 +38,7 @@ public class Tweet {
         Tweet tweet = (Tweet) o;
         return this.id == tweet.id &&
             this.posterName.equals(tweet.posterName) &&
-            this.content.equals(tweet.content);
+            this.content.equals(tweet.content) && this.timestamp.getTime() == tweet.timestamp.getTime();
     }
 
     @Override

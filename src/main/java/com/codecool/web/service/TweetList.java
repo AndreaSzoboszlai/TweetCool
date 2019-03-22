@@ -2,20 +2,19 @@ package com.codecool.web.service;
 
 import com.codecool.web.model.Tweet;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TweetListSingleton {
-    private static TweetListSingleton ourInstance = new TweetListSingleton();
+public class TweetList {
+    private static TweetList ourInstance = new TweetList();
     private List<Tweet> tweets = null;
 
-    public static TweetListSingleton getInstance() {
+    public static TweetList getInstance() {
         return ourInstance;
     }
 
-    private TweetListSingleton() {
+    private TweetList() {
         tweets = new ArrayList<>();
     }
 
@@ -41,14 +40,14 @@ public class TweetListSingleton {
                 } else if (name.equals(tweets.get(i).getPosterName())) {
                     long tweetTime = tweets.get(i).getTimestamp().getTime();
                     long givenTime = startDate.getTime();
-                    if ((givenTime < tweetTime)) {
+                    if ((givenTime <= tweetTime)) {
                         filtered.add(tweets.get(i));
                         count++;
                     }
                 } else if (name.equals("") && (startDate != null)) {
                     long tweetTime = tweets.get(i).getTimestamp().getTime();
                     long givenTime = startDate.getTime();
-                    if ((givenTime < tweetTime)) {
+                    if ((givenTime <= tweetTime)) {
                         filtered.add(tweets.get(i));
                         count++;
                     }

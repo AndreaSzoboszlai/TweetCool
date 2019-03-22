@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public final class WebappContextListener implements ServletContextListener {
-    private XMLReader reader = new XMLReader();
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -17,9 +16,8 @@ public final class WebappContextListener implements ServletContextListener {
         String directory = homeDir + "/webapps";
 
         if (Utils.doesFileExit(directory + "/")) {
-            reader.readXML(directory + "/Tweets.xml");
-            for (Tweet element : reader.getReadTweets()) {
-                TweetListSingleton.getInstance().addToTweets(element);
+            for (Tweet element : Utils.readXML(directory + "/Tweets.xml")) {
+                TweetList.getInstance().addToTweets(element);
             }
         }
         System.out.println("This method is invoked once when the webapp gets deployed.");
@@ -27,7 +25,7 @@ public final class WebappContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        Utils.writeTweets(TweetListSingleton.getInstance().getTweets());
+        Utils.writeTweets(TweetList.getInstance().getTweets());
         System.out.println("This method is invoked once when the webapp gets undeployed.");
     }
 }

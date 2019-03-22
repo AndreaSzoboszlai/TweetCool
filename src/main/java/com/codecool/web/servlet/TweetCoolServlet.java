@@ -1,7 +1,7 @@
 package com.codecool.web.servlet;
 
 import com.codecool.web.model.Tweet;
-import com.codecool.web.service.TweetListSingleton;
+import com.codecool.web.service.TweetList;
 
 
 import javax.servlet.ServletException;
@@ -26,8 +26,8 @@ public class TweetCoolServlet extends HttpServlet {
         Date date = new Date();
         id++;
 
-        TweetListSingleton.getInstance().addToTweets(new Tweet(id, name, content, date));
-        List<Tweet> tweets = TweetListSingleton.getInstance().getTweets();
+        TweetList.getInstance().addToTweets(new Tweet(id, name, content, date));
+        List<Tweet> tweets = TweetList.getInstance().getTweets();
         req.getSession().setAttribute("tweets", tweets);
         req.setAttribute("name", name);
         req.setAttribute("content", content);
@@ -37,7 +37,7 @@ public class TweetCoolServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Tweet> tweets = TweetListSingleton.getInstance().getTweets();
+        List<Tweet> tweets = TweetList.getInstance().getTweets();
         req.getSession().setAttribute("filtered", tweets);
         req.getRequestDispatcher("tweetsjstl.jsp").forward(req, resp);
     }
